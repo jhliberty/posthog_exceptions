@@ -7,7 +7,7 @@ A Ruby gem that serves as a wrapper around the PostHog error tracking API.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'posthog-exception'
+gem 'posthog_exceptions'
 ```
 
 And then execute:
@@ -19,17 +19,17 @@ $ bundle install
 Or install it yourself as:
 
 ```bash
-$ gem install posthog-exception
+$ gem install posthog_exceptions
 ```
 
 ## Configuration
 
 ### Rails
 
-For Rails applications, create an initializer at `config/initializers/posthog_exception.rb`:
+For Rails applications, create an initializer at `config/initializers/posthog_exceptions.rb`:
 
 ```ruby
-PosthogException.configure do |config|
+PosthogExceptions.configure do |config|
   config.api_key = 'your_posthog_api_key'
   config.api_url = 'https://us.i.posthog.com/i/v0/e/' # Default PostHog API URL
   config.environment = Rails.env
@@ -43,9 +43,9 @@ end
 For non-Rails applications, configure the gem before using it:
 
 ```ruby
-require 'posthog_exception'
+require 'posthog_exceptions'
 
-PosthogException.configure do |config|
+PosthogExceptions.configure do |config|
   config.api_key = 'your_posthog_api_key'
   config.api_url = 'https://us.i.posthog.com/i/v0/e/'
   config.environment = ENV['RACK_ENV'] || 'development'
@@ -66,7 +66,7 @@ begin
   result = some_dangerous_operation
 rescue => e
   # Track the exception with context
-  PosthogException.notify(e, {
+  PosthogExceptions.notify(e, {
     user_id: current_user.analytics_uuid,
     custom_data: {
       operation: 'some_dangerous_operation',
@@ -87,7 +87,7 @@ def process_payment
     # Payment processing code
     payment_processor.charge(amount)
   rescue PaymentError => e
-    PosthogException.notify(e, {
+    PosthogExceptions.notify(e, {
       payment_amount: amount,
       payment_method: payment_method,
       customer_id: customer.id
@@ -127,7 +127,7 @@ end
 For better performance, you can track exceptions asynchronously (requires ActiveJob):
 
 ```ruby
-PosthogException.notify_async(exception, context)
+PosthogExceptions.notify_async(exception, context)
 ```
 
 ### Testing the Integration
@@ -135,7 +135,7 @@ PosthogException.notify_async(exception, context)
 For Rails applications, a rake task is provided to test the integration:
 
 ```bash
-$ rake posthog_exception:test
+$ rake posthog_exceptions:test
 ```
 
 ## Features
@@ -156,7 +156,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/yourusername/posthog-exception.
+Bug reports and pull requests are welcome on GitHub at https://github.com/jhliberty/posthog_exceptions.
 
 ## License
 

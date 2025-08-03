@@ -1,6 +1,6 @@
-module PosthogException
+module PosthogExceptions
   # Background Job to handle async exception tracking
-  class PosthogExceptionJob < ActiveJob::Base
+  class PosthogExceptionsJob < ActiveJob::Base
     queue_as :default
 
     # Process the exception asynchronously
@@ -22,14 +22,14 @@ module PosthogException
       exception.set_backtrace(backtrace) if backtrace.present?
 
       # Send to PostHog
-      PosthogException.notify(exception, context)
+      PosthogExceptions.notify(exception, context)
     rescue StandardError => e
       # Log any errors in the job itself
       if defined?(Rails) && Rails.logger
-        Rails.logger.error("Error in PosthogExceptionJob: #{e.message}")
+        Rails.logger.error("Error in PosthogExceptionsJob: #{e.message}")
         Rails.logger.error(e.backtrace.join("\n")) if e.backtrace
       else
-        warn("Error in PosthogExceptionJob: #{e.message}")
+        warn("Error in PosthogExceptionsJob: #{e.message}")
         warn(e.backtrace.join("\n")) if e.backtrace
       end
     end

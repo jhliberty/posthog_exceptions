@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_relative 'lib/posthog_exception/version'
+require_relative 'lib/posthog_exceptions/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'posthog-exception'
-  spec.version       = PosthogException::VERSION
+  spec.name          = 'posthog_exceptions'
+  spec.version       = PosthogExceptions::VERSION
   spec.authors       = ['John-Henry Liberty']
   spec.email         = ['jh@1vx.gg']
 
   spec.summary       = 'Ruby gem for tracking exceptions with PostHog'
   spec.description   = 'A Ruby gem that serves as a wrapper around the PostHog error tracking API'
-  spec.homepage      = 'https://github.com/jhliberty/posthog-exception'
+  spec.homepage      = 'https://github.com/jhliberty/posthog_exceptions'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.5.0')
 

@@ -1,4 +1,4 @@
-module PosthogException
+module PosthogExceptions
   class Middleware
     def initialize(app)
       @app = app
@@ -9,7 +9,7 @@ module PosthogException
     # rubocop:disable Lint/RescueException
     rescue Exception => e
       # Only report if it's not in the ignored exceptions list
-      unless PosthogException.configuration.ignored_exceptions.include?(e.class.name)
+      unless PosthogExceptions.configuration.ignored_exceptions.include?(e.class.name)
         # Create a request object to extract information
         request = if defined?(ActionDispatch::Request)
                     ActionDispatch::Request.new(env)
@@ -40,7 +40,7 @@ module PosthogException
         }.compact
 
         # Notify PostHog
-        PosthogException.notify(e, context)
+        PosthogExceptions.notify(e, context)
       end
 
       # Re-raise the exception

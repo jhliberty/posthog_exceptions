@@ -1,4 +1,4 @@
-module PosthogException
+module PosthogExceptions
   # Controller integration methods for Rails applications
   module ControllerMethods
     # Include these methods in ActionController::Base
@@ -18,7 +18,7 @@ module PosthogException
     # @return [Boolean] whether the exception was reported successfully
     def posthog_report_exception(exception, custom_context = {})
       # Skip if this exception should be ignored
-      return false if PosthogException.configuration.ignored_exceptions.include?(exception.class.name)
+      return false if PosthogExceptions.configuration.ignored_exceptions.include?(exception.class.name)
 
       # Add controller context
       context = {
@@ -59,7 +59,7 @@ module PosthogException
       context.merge!(custom_context) if custom_context.is_a?(Hash)
 
       # Report to PostHog asynchronously
-      PosthogException.notify_async(exception, context)
+      PosthogExceptions.notify_async(exception, context)
     end
   end
 end

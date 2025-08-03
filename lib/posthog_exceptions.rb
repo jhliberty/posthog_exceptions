@@ -4,13 +4,13 @@ require 'json'
 require 'securerandom'
 require 'digest'
 
-require 'posthog_exception/version'
-require 'posthog_exception/configuration'
-require 'posthog_exception/middleware'
-require 'posthog_exception/controller_methods'
-require 'posthog_exception/railtie' if defined?(Rails)
+require 'posthog_exceptions/version'
+require 'posthog_exceptions/configuration'
+require 'posthog_exceptions/middleware'
+require 'posthog_exceptions/controller_methods'
+require 'posthog_exceptions/railtie' if defined?(Rails)
 
-module PosthogException
+module PosthogExceptions
   class << self
     def configuration
       @configuration ||= Configuration.new
@@ -59,7 +59,7 @@ module PosthogException
 
     def notify_async(exception, context = {})
       if defined?(Rails) && Rails.application && defined?(ActiveJob)
-        PosthogException::PosthogExceptionJob.perform_later(
+        PosthogExceptions::PosthogExceptionsJob.perform_later(
           exception_class: exception.class.name,
           message: exception.message,
           backtrace: exception.backtrace,
@@ -149,4 +149,4 @@ module PosthogException
 end
 
 # Load the job class if ActiveJob is available
-require 'posthog_exception/job' if defined?(ActiveJob)
+require 'posthog_exceptions/job' if defined?(ActiveJob)

@@ -1,5 +1,5 @@
-module PosthogException
-  # Configuration class for PosthogException
+module PosthogExceptions
+  # Configuration class for PosthogExceptions
   # Handles all configurable options for the gem
   class Configuration
     # PostHog API key
