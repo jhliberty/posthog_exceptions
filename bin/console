@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'posthog_exception'
+
+# You can add fixtures and/or initialization code here to make experimenting
+# with your gem easier. You can also use a different console, if you like.
+
+# Configure the gem for testing
+PosthogException.configure do |config|
+  config.api_key = ENV['POSTHOG_API_KEY'] || 'test_api_key'
+  config.environment = 'development'
+  config.enabled = true
+end
+
+# (If you use this, don't forget to add pry to your Gemfile!)
+# require "pry"
+# Pry.start
+
+require 'irb'
+IRB.start(__FILE__)
