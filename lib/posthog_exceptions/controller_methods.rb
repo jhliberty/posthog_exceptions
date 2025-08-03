@@ -45,21 +45,19 @@ module PosthogExceptions
         context[:user_email] = current_user.email if current_user.respond_to?(:email)
       end
 
-      private
-
-      def fetch_current_user
-        if respond_to?(:current_user)
-          current_user
-        elsif defined?(Current) && Current.respond_to?(:user)
-          Current.user
-        end
-      end
-
       # Merge custom context
       context.merge!(custom_context) if custom_context.is_a?(Hash)
 
       # Report to PostHog asynchronously
       PosthogExceptions.notify_async(exception, context)
+    end
+
+    def fetch_current_user
+      if respond_to?(:current_user)
+        current_user
+      elsif defined?(Current) && Current.respond_to?(:user)
+        Current.user
+      end
     end
   end
 end
