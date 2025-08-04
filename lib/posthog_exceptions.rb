@@ -45,6 +45,8 @@ module PosthogExceptions
       # Prepare the properties
       properties = {
         distinct_id: context[:user_id] || context[:distinct_id] || 'anonymous',
+        '$exception_type': exception.class.name,
+        '$exception_message': exception.message,
         '$exception_list': [exception_data],
         '$exception_fingerprint': fingerprint,
         environment: configuration.environment
